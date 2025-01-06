@@ -25,12 +25,14 @@ public class MyController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Data successfully received."),
             @ApiResponse(responseCode = "400", description = "Bad request, invalid data.")
-    })
+    }
+    )
     public String submitData(@RequestBody String data) {
         return "Data received: " + data;
     }
 
     @GetMapping("/api/user/{id}")
+    @Operation(summary = "Get user by ID", description = "Receives an id and returns the User ID")
     public String getUserById(@PathVariable("id") Long id) {
         return "User ID: " + id;
     }
