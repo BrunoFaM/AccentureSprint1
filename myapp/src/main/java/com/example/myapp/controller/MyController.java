@@ -2,6 +2,8 @@ package com.example.myapp.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,18 @@ public class MyController {
     }
 
     @PostMapping("/api/submit")
-    @Operation(summary = "Submit Data", description = "Receives data and returns a confirmation message.")
+    @Operation(
+            summary = "Submit Data",
+            description = "Receives data and returns a confirmation message.",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "The data to be submitted",
+                    required = true,
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(type = "string", example = "Sample data")
+                    )
+            )
+    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Data successfully received."),
             @ApiResponse(responseCode = "400", description = "Bad request, invalid data.")
